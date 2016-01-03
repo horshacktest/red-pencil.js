@@ -1,0 +1,26 @@
+{
+  "name": "red-pencil.js",
+  "version": "1.0.0",
+  "description": "red-pencil kata",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horshacktest/red-pencil.js.git"
+  },
+  "keywords": [
+    "javascript",
+    "kata"
+  ],
+  "author": "Jeff Borisch <jeff@horshacktest.com> (http://horshacktest.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/horshacktest/red-pencil.js/issues"
+  },
+  "homepage": "https://github.com/horshacktest/red-pencil.js#readme",
+  "devDependencies": {
+    "jasmine": "^2.4.1"
+  }
+}
