@@ -71,7 +71,7 @@ describe('a good with a price history', function() {
         good.setPrice(10);
         var date1 = good.getPriceHistory()[0].date;
         var date2 = good.getPriceHistory()[1].date;
-        console.log(dateDiff(date1, date2));
+        expect(dateDiff(date1, date2)).toBe(30);
     });
 
 });

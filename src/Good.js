@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function Good(price, description) {
     this.description = description || "" ;
@@ -26,10 +26,13 @@ Good.prototype.getPromotions = function() {
     return this.promotions;
 }
 
-Good.prototype.setPromotions = function(promotion_name, promotion_info) {
+Good.prototype.setPromotion = function(promotion_name, promotion_info) {
     this.promotions[promotion_name] = promotion_info;
 }
 
+Good.prototype.removePromotion = function(promotion_name, promotion_info) {
+    this.promotions[promotion_name] = promotion_info;
+}
 Good.prototype.getDaysSinceLastPriceChange = function() {
 
 }
