@@ -8,9 +8,13 @@ describe('a good for sale', function() {
         good = new Good();
     });
 
+    it('should have a price of 0 if a price is not passed', function() {
+        expect(good.getPrice()).toBe(0);
+    });
+
     it('should allow the price to be set', function() {
         good.setPrice(20);
-        expect(good.price).toBe(20);
+        expect(good.getPrice()).toBe(20);
     });
 
     it('should keep track of price history', function() {
@@ -54,6 +58,10 @@ describe('a good with a price history', function() {
     beforeEach(function() {
         jasmine.clock().install();
         good = new Good();
+    });
+
+    afterAll(function() {
+        jasmine.clock().uninstall();
     });
 
     it('should be able to calculate the number of days between the current price change and next most recent price change', function() {
