@@ -1,1 +1,4 @@
 node_modules
+scratch
+*.sublime-project
+*.sublime-workspace
