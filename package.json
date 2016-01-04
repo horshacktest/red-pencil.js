@@ -4,7 +4,7 @@
   "description": "red-pencil kata",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "chokidar './spec/*.js' './src/*.js' -c jasmine"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/horshacktest/red-pencil.js#readme",
   "devDependencies": {
-    "jasmine": "^2.4.1"
+    "chokidar-cli": "^1.2.0",
+    "jasmine": "^2.4.1",
+  },
+  "dependencies": {
   }
 }
