@@ -43,6 +43,29 @@ describe('a good for sale', function() {
 
 });
 
+describe('a good that stores promotion information', function() {
+
+    var Good = require('../src/Good');
+    var good = new Good();
+    var promotionobject = {startdate: new Date(2015,0,10), originalprice:20};   
+
+    it('should allow a promotion to be set', function() {
+        // good.setPromotion('redpencil', promotionobject);
+        expect(function(){good.setPromotion('redpencil', promotionobject)}).not.toThrow();
+        //expect(good.setPromotion()).toBe(undefined);
+    });
+    
+    it('should allow a promotion to be read', function() {
+        expect(good.getPromotions()).toEqual({redpencil:{startdate: new Date(2015,0,10), originalprice:20}});
+    });
+    
+    it('should allow a promotion to be removed', function() {
+        good.removePromotion('redpencil');
+        expect(good.getPromotions()).toEqual({});
+    });
+
+});
+
 describe('a good with a price history', function() {
     
     var Good = require('../src/Good');

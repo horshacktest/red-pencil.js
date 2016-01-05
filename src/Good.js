@@ -30,8 +30,8 @@ Good.prototype.setPromotion = function(promotion_name, promotion_info) {
     this.promotions[promotion_name] = promotion_info;
 }
 
-Good.prototype.removePromotion = function(promotion_name, promotion_info) {
-    this.promotions[promotion_name] = promotion_info;
+Good.prototype.removePromotion = function(promotion_name) {
+    delete this.promotions[promotion_name];
 }
 Good.prototype.getDaysSinceLastPriceChange = function() {
     function datediff(date1, date2) {
