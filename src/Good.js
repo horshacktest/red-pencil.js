@@ -34,7 +34,15 @@ Good.prototype.removePromotion = function(promotion_name, promotion_info) {
     this.promotions[promotion_name] = promotion_info;
 }
 Good.prototype.getDaysSinceLastPriceChange = function() {
-
+    function datediff(date1, date2) {
+        var A_DAY_OF_MILLISECONDS = 86400000;
+        var diffms = date1.getTime() - date2.getTime();
+        return diffms / A_DAY_OF_MILLISECONDS;
+    }
+    //var date0 = new Date();
+    var date1 = this.getPriceHistory()[0].date;
+    var date2 = this.getPriceHistory()[1].date || date1;
+    return datediff(date1,date2);
 }
 
 module.exports = Good;

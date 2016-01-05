@@ -37,41 +37,32 @@ describe('a good for sale', function() {
         expect(now_in_a_good).toBeCloseTo(now, -3); 
     });
 
-    it('should handle currency properly', function() {
+    xit('should handle currency properly', function() {
 
     });
 
 });
 
-
 describe('a good with a price history', function() {
-
-    var dateDiff = function(date1, date2) {
-        var A_DAY_OF_MILLISECONDS = 86400000;
-        var diffms = date1.getTime() - date2.getTime();
-        return diffms / A_DAY_OF_MILLISECONDS;
-    }
     
     var Good = require('../src/Good');
     var good;
 
     beforeEach(function() {
         jasmine.clock().install();
-        good = new Good();
     });
 
     afterAll(function() {
         jasmine.clock().uninstall();
     });
 
-    it('should be able to calculate the number of days between the current price change and next most recent price change', function() {
+    it('should be able to calculate the number of days between the most recent price change and second most recent price change', function() {
         jasmine.clock().mockDate(new Date(2014, 11, 9));
+        good = new Good();
         good.setPrice(20);
         jasmine.clock().mockDate(new Date(2015, 0, 8));
-        good.setPrice(10);
-        var date1 = good.getPriceHistory()[0].date;
-        var date2 = good.getPriceHistory()[1].date;
-        expect(dateDiff(date1, date2)).toBe(30);
+        good.setPrice(30);
+        expect(good.getDaysSinceLastPriceChange()).toBe(30);
     });
 
 });

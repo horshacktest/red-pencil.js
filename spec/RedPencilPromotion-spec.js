@@ -3,26 +3,51 @@
 describe('a red-pencil promotion processor', function() {
     var RedPencilPromotion = require('../src/RedPencilPromotion');
     var Good = require('../src/Good');
-    var good;
+    var good, rpp;
 
     jasmine.clock().install();
 
     beforeEach(function() {
+        jasmine.clock().mockDate(new Date(2014, 11, 9));
         good = new Good(20, "A fine object that looks great in any decor.");
+        rpp = new RedPencilPromotion(good);
     });
 
     it('should return a "good" object passed to it after it has inspected and changed any promotions on that good', function() {
-        var rppgood = RedPencilPromotion(good)
+        var rppgood = new RedPencilPromotion(good).process();
         expect(rppgood instanceof Good ).toBe( true );
     });
 
     it('should check if the last price change is within the allowed discount range', function() {
-        jasmine.clock().mockDate(new Date(2014, 11, 9));
+        // bad prices based on 20
+        good.setPrice(20.00);
         good.setPrice(13.99);
-        //console.dir(RedPencilPromotion);
-        spyOn(RedPencilPromotion, "testPriceChangeRange");
-        expect(RedPencilPromotion.testPriceChangeRange).toHaveBeenCalled();
-        
+        expect(rpp.testPriceChangeRange()).toBeFalsy();
+        good.setPrice(20.00);
+        expect(rpp.testPriceChangeRange()).toBeFalsy();
+        good.setPrice(19.01);
+        expect(rpp.testPriceChangeRange()).toBeFalsy();
+        // good prices based on 20
+        good.setPrice(20.00);
+        good.setPrice(14.00);
+        expect(rpp.testPriceChangeRange()).toBeTruthy();
+        good.setPrice(20.00);
+        good.setPrice(16.00);
+        expect(rpp.testPriceChangeRange()).toBeTruthy();
+        good.setPrice(20.00);
+        good.setPrice(19.00);
+        expect(rpp.testPriceChangeRange()).toBeTruthy();
+    });
+
+    it('should check if the price has not been changed in the last 30 days', function() {
+        jasmine.clock().mockDate(new Date(2014, 11, 9));
+        good.setPrice(14.00);
+        jasmine.clock().mockDate(new Date(2015, 0, 8));
+        good.setPrice(12.00);
+        expect(rpp.testPriceChangeWaitingPeriod()).toBe(true);
+        jasmine.clock().mockDate(new Date(2015, 0, 18));
+        good.setPrice(12.00);
+        expect(rpp.testPriceChangeWaitingPeriod()).toBe(false);
     });
 
     describe('a good to be evaluated for red-pencil promotions', function() {
