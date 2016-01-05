@@ -50,21 +50,20 @@ describe('a red-pencil promotion processor', function() {
         expect(rpp.testPriceChangeWaitingPeriod()).toBe(false);
     });
 
+    it('should check for a price increase', function() {
+        good.setPrice(14.00);
+        good.setPrice(14.01);
+        expect(rpp.testPriceIncrease()).toBe(true);
+    });
+
     describe('a good to be evaluated for red-pencil promotions', function() {
         
         describe("a good eligible for the red pencil promotion", function() {
 
-            var rpp;
-            var good;
-
-
             it("should enable the promotion when price reduction is between 5 and 30 %", function() {
             })
 
-
-
         })
-
 
         describe('a good not eligible for the red pencil promotion', function() {
             
@@ -76,6 +75,7 @@ describe('a red-pencil promotion processor', function() {
         });
 
         describe('a good with the red pencil promotion applied', function() {
+            jasmine.clock().mockDate(new Date(2014, 11, 9));
 
             //Rule 3   
             it('should cancel the promotion after it has been in effect for 30 days', function() {
