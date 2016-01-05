@@ -24,7 +24,7 @@ function RedPencilPromotion(good) {
 }
 
 RedPencilPromotion.prototype.fetchRedPencilPromotion = function() {
-    return this.good.promotions.redpencil ;
+    return this.good.promotions.redpencil;
 };
 
 RedPencilPromotion.prototype.datediff = function(date1, date2) {
@@ -72,12 +72,14 @@ RedPencilPromotion.prototype.testPriceChangeWaitingPeriod = function() {
         return false;
 };
 
-RedPencilPromotion.prototype.testCurrentRedPencilExpiry = function() {
+RedPencilPromotion.prototype.removeRedPencilIfExpired = function() {
     // test to see if there is a redpencil promo applied that needs to be expired
     var activepromotions = this.fetchRedPencilPromotion();
-    var now = new Date();
-    if ( this.datediff( now, activepromotions.startdate ) > 30 ) {
-        this.good.removePromotion("redpencil");
+    if ( activepromotions) {
+        var now = new Date();
+        if ( this.datediff( now, activepromotions.startdate ) > 30 ) {
+            this.good.removePromotion("redpencil");
+        }
     }
 };
 

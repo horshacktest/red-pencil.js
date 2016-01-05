@@ -4,11 +4,11 @@ describe('a red-pencil promotion processor', function() {
     var RedPencilPromotion = require('../src/RedPencilPromotion');
     var Good = require('../src/Good');
     var good, rpp;
+    var promotionobject = {startdate: new Date(2015,0,10), originalprice:20};   
 
     jasmine.clock().install();
 
     beforeEach(function() {
-        jasmine.clock().mockDate(new Date(2014, 11, 9));
         good = new Good(20, "A fine object that looks great in any decor.");
         rpp = new RedPencilPromotion(good);
     });
@@ -56,6 +56,13 @@ describe('a red-pencil promotion processor', function() {
         expect(rpp.testPriceIncrease()).toBe(true);
     });
 
+    it('should remove a promotion if it is expired', function() {
+        good.setPromotion( 'redpencil',  promotionobject );
+        jasmine.clock().mockDate(new Date(2015, 6, 18));
+        rpp.removeRedPencilIfExpired();
+        expect(rpp.fetchRedPencilPromotion()).toBeUndefined();        
+    });
+
     describe('a good to be evaluated for red-pencil promotions', function() {
         
         describe("a good eligible for the red pencil promotion", function() {
@@ -75,11 +82,10 @@ describe('a red-pencil promotion processor', function() {
         });
 
         describe('a good with the red pencil promotion applied', function() {
-            jasmine.clock().mockDate(new Date(2014, 11, 9));
 
             //Rule 3   
             it('should cancel the promotion after it has been in effect for 30 days', function() {
-                
+
             });
 
         });
