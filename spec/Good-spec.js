@@ -64,6 +64,13 @@ describe('a good that stores promotion information', function() {
         expect(good.getPromotions()).toEqual({});
     });
 
+    it('should add events to the promotion history', function() {
+        good.setPromotionHistory("redpencil" , {message:"promotion started"});
+        var ph = good.getPromotionHistory();
+        var phlast = ph[ph.length-1];
+        expect(phlast.info.message).toBe("promotion started");
+    });
+
 });
 
 describe('a good with a price history', function() {

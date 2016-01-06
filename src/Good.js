@@ -1,8 +1,14 @@
 'use strict';
 
 function Good(price, description) {
-    this.description = description || "" ;
-    this.pricehistory = [{ "price": price || 0, date: new Date() }]; 
+    this.description = description || '' ;
+    this.pricehistory = [{ 'price': price || 0, date: new Date() }]; 
+    this.promotion = { 
+        type: '',
+        date: new Date(),
+        info: {}
+    };
+    this.promotionhistory = []; 
     this.promotions = {};
 }
 
@@ -28,7 +34,20 @@ Good.prototype.getPromotions = function() {
 
 Good.prototype.setPromotion = function(promotion_name, promotion_info) {
     this.promotions[promotion_name] = promotion_info;
-}
+};
+
+Good.prototype.getPromotionHistory = function() {
+    return this.promotionhistory; 
+};
+
+Good.prototype.setPromotionHistory = function(promotion_name, promotion_info) {
+    var p = Object.create(this.promotion);
+    p.type = promotion_name;
+    p.info = promotion_info;
+    this.promotionhistory.push( p ); 
+    // console.dir(p.type);
+    // console.dir(this.promotionhistory);
+};
 
 Good.prototype.removePromotion = function(promotion_name) {
     delete this.promotions[promotion_name];
