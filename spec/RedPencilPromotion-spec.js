@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 describe('a red-pencil promotion processor', function() {
     var RedPencilPromotion = require('../src/RedPencilPromotion');
@@ -9,7 +9,7 @@ describe('a red-pencil promotion processor', function() {
     jasmine.clock().install();
 
     beforeEach(function() {
-        good = new Good(20, "A fine object that looks great in any decor.");
+        good = new Good(20, 'A fine object that looks great in any decor.');
         rpp = new RedPencilPromotion(good);
     });
 
@@ -46,7 +46,7 @@ describe('a red-pencil promotion processor', function() {
         good.setPrice(12.00);
         expect(rpp.testPriceChangeWaitingPeriod()).toBe(true);
         jasmine.clock().mockDate(new Date(2015, 0, 18));
-        good.setPrice(12.00);
+        good.setPrice(10.00);
         expect(rpp.testPriceChangeWaitingPeriod()).toBe(false);
     });
 
@@ -65,12 +65,12 @@ describe('a red-pencil promotion processor', function() {
 
     describe('a good to be evaluated for red-pencil promotions', function() {
         
-        describe("a good eligible for the red pencil promotion", function() {
+        describe('a good eligible for the red pencil promotion', function() {
 
-            it("should enable the promotion when price reduction is between 5 and 30 %", function() {
-            })
+            it('should enable the promotion when price reduction is between 5 and 30 %', function() {
+            });
 
-        })
+        });
 
         describe('a good not eligible for the red pencil promotion', function() {
             

@@ -1,15 +1,32 @@
-"use strict";
+'use strict';
 
 function RedPencilPromotion(good) {
     this.good = good;
     this.goodpricehistory = good.getPriceHistory();
-    
+    this.goodpromotionhistory = good.getPromotionHistory();
     var eligibleforpromotion;
 
-    //if there is only one price it can't be eligible 
+
+}
+
+RedPencilPromotion.prototype.isEligible = function() {
+     
+    // Use the eligible var if one of the tests depends on further tests
+    var eligible; //boolean
+    // At the end of the function, return the eligible variable 
+
+    // some tests are individually conclusive and we can return early
+
+    //if there is only one price in the history it can't have a price reduction and it can't be eligible 
     if ( this.goodpricehistory.length < 2 ) {
-        //return good;
+        return false;
     }
+
+    if ( this.testPriceChangeRange() ) {}
+        eligible = true;
+
+    
+
 
     if (eligibleforpromotion) {
         // set the promotion
@@ -21,7 +38,8 @@ function RedPencilPromotion(good) {
         //do nothing
     }
 
-}
+    return eligible;
+};
 
 RedPencilPromotion.prototype.fetchRedPencilPromotion = function() {
     return this.good.promotions.redpencil;
@@ -78,7 +96,7 @@ RedPencilPromotion.prototype.removeRedPencilIfExpired = function() {
     if ( activepromotions) {
         var now = new Date();
         if ( this.datediff( now, activepromotions.startdate ) > 30 ) {
-            this.good.removePromotion("redpencil");
+            this.good.removePromotion('redpencil');
         }
     }
 };

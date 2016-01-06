@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 describe('a good for sale', function() {
 
     var Good = require('../src/Good');
@@ -51,7 +51,7 @@ describe('a good that stores promotion information', function() {
 
     it('should allow a promotion to be set', function() {
         // good.setPromotion('redpencil', promotionobject);
-        expect(function(){good.setPromotion('redpencil', promotionobject)}).not.toThrow();
+        expect(function(){good.setPromotion('redpencil', promotionobject);}).not.toThrow();
         //expect(good.setPromotion()).toBe(undefined);
     });
     
@@ -65,10 +65,10 @@ describe('a good that stores promotion information', function() {
     });
 
     it('should add events to the promotion history', function() {
-        good.setPromotionHistory("redpencil" , {message:"promotion started"});
+        good.setPromotionHistory('redpencil' , {message:'promotion started'});
         var ph = good.getPromotionHistory();
         var phlast = ph[ph.length-1];
-        expect(phlast.info.message).toBe("promotion started");
+        expect(phlast.info.message).toBe('promotion started');
     });
 
 });
