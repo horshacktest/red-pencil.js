@@ -41,6 +41,13 @@ RedPencilPromotion.prototype.datediff = function(date1, date2) {
     return diffms / A_DAY_OF_MILLISECONDS;
 };
 
+RedPencilPromotion.prototype.getDaysSinceLastPriceChange = function() {
+    //var date0 = new Date();
+    var date1 = this.goodpricehistory[0].date;
+    var date2 = this.goodpricehistory[1].date || date1;
+    return this.datediff(date1,date2);
+};
+
 RedPencilPromotion.prototype.process = function() {
     
     this.processRedPencilRemoval(); // 
@@ -79,9 +86,7 @@ RedPencilPromotion.prototype.testPriceChangeRange = function() {
 RedPencilPromotion.prototype.testPriceChangeWaitingPeriod = function() {
     // for a price change to be able to initiate a new promotion the price muct have been stable for 30 days
     var WAITING_PERIOD = 30;
-    var dateofpreviouspricechange = this.good.getDaysSinceLastPriceChange();
-    // console.log(dateofpreviouspricechange);
-    if ( dateofpreviouspricechange >= WAITING_PERIOD )
+    if ( this.getDaysSinceLastPriceChange() >= WAITING_PERIOD )
         return true;
     else
         return false;

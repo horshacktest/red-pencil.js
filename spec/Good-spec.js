@@ -72,27 +72,3 @@ describe('a good that stores promotion information', function() {
     });
 
 });
-
-describe('a good with a price history', function() {
-    
-    var Good = require('../src/Good');
-    var good;
-
-    beforeEach(function() {
-        jasmine.clock().install();
-    });
-
-    afterAll(function() {
-        jasmine.clock().uninstall();
-    });
-
-    it('should be able to calculate the number of days between the most recent price change and second most recent price change', function() {
-        jasmine.clock().mockDate(new Date(2014, 11, 9));
-        good = new Good();
-        good.setPrice(20);
-        jasmine.clock().mockDate(new Date(2015, 0, 8));
-        good.setPrice(30);
-        expect(good.getDaysSinceLastPriceChange()).toBe(30);
-    });
-
-});
