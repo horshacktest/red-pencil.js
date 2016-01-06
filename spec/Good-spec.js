@@ -47,9 +47,9 @@ describe('a good that stores promotion information', function() {
 
     var Good = require('../src/Good');
     var good = new Good();
-    var promotiontype = 'redpencil';
+    var promotiontype = 'mypromotion';
     var promotiondate = new Date(2015,0,10);
-    var promotioninfo = {message:'promotion started', originalprice:20}
+    var promotioninfo = {some_info_relevant_to_the_promo_type:'mypromotion started', some_price_info:20}
     var promotionobject = {type:promotiontype, date: promotiondate, info: promotioninfo };   
 
     it('should allow a promotion to be set', function() {
@@ -57,18 +57,18 @@ describe('a good that stores promotion information', function() {
     });
     
     it('should allow a promotion to be read', function() {
-        expect(good.getPromotions()).toEqual({redpencil:{date: promotiondate, info: promotioninfo}});
+        expect(good.getPromotions()).toEqual({mypromotion:{date: promotiondate, info: promotioninfo}});
     });
     
     it('should allow a promotion to be removed', function() {
-        good.removePromotion('redpencil');
+        good.removePromotion('mypromotion');
         expect(good.getPromotions()).toEqual({});
     });
 
     it('should add events to the promotion history', function() {
         good.setPromotionHistory(promotionobject);
         var ph = good.getPromotionHistory()[0];
-        expect(ph.info.message).toBe('promotion started');
+        expect(ph.info.some_info_relevant_to_the_promo_type).toBe('mypromotion started');
     });
 
 });
