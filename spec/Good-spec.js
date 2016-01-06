@@ -56,7 +56,7 @@ describe('a good that stores promotion information', function() {
     });
     
     it('should allow a promotion to be read', function() {
-        expect(good.getPromotions()).toEqual({redpencil:{startdate: new Date(2015,0,10), originalprice:20}});
+        expect(good.getPromotions()).toEqual({redpencil:promotionobject});
     });
     
     it('should allow a promotion to be removed', function() {
