@@ -4,7 +4,7 @@ function RedPencilPromotion(good) {
     this.good = good;
     this.goodpricehistory = good.getPriceHistory();
     this.goodpromotionhistory = good.getPromotionHistory();
-    var eligibleforpromotion;
+    // var eligibleforpromotion;
 
 
 }
@@ -25,18 +25,8 @@ RedPencilPromotion.prototype.isEligible = function() {
     if ( this.testPriceChangeRange() ) {}
         eligible = true;
 
-    
-
-
-    if (eligibleforpromotion) {
-        // set the promotion
-    }
-    else if (!eligibleforpromotion) {
-        // end the promotion
-    }
-    else {
-        //do nothing
-    }
+    // read at least 60 days of price history
+    // maybe only 30 if I can check for rpp expirations
 
     return eligible;
 };
@@ -52,6 +42,13 @@ RedPencilPromotion.prototype.datediff = function(date1, date2) {
 };
 
 RedPencilPromotion.prototype.process = function() {
+    
+    this.processRedPencilRemoval(); // 
+
+    if ( this.isEligible() ) {
+        //set RPP
+    }
+
     return this.good;
 };
 
@@ -90,18 +87,35 @@ RedPencilPromotion.prototype.testPriceChangeWaitingPeriod = function() {
         return false;
 };
 
-RedPencilPromotion.prototype.removeRedPencilIfExpired = function() {
+RedPencilPromotion.prototype.testCurrentRedPencilPriceToPrePromotionPrice = function() {
+    //find original price in promotions object 
+    //comopare to current price to see if promotion should be removed
+};
+
+RedPencilPromotion.prototype.removeRedPencilIfExpired = function(startdate^^^^^) {
     // test to see if there is a redpencil promo applied that needs to be expired
     var activepromotions = this.fetchRedPencilPromotion();
     if ( activepromotions) {
         var now = new Date();
         if ( this.datediff( now, activepromotions.startdate ) > 30 ) {
-            this.good.removePromotion('redpencil');
+            this.removeRedPencilPromotion();
         }
     }
 };
 
+RedPencilPromotion.prototype.processRedPencilRemoval = function() {
+    this.removeRedPencilIfExpired();
+};
 
+RedPencilPromotion.prototype.removeRedPencilPromotion = function() {
+    this.good.removePromotion('redpencil');
+};
+
+RedPencilPromotion.prototype.setRedPencilPromotion = function() {
+    //find the date of the price change that 
+    // set the rpp in the promotions object
+    // log it to the history object
+};
 
 
 

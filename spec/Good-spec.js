@@ -47,7 +47,8 @@ describe('a good that stores promotion information', function() {
 
     var Good = require('../src/Good');
     var good = new Good();
-    var promotionobject = {startdate: new Date(2015,0,10), originalprice:20};   
+    var promotionobject = {startdate: new Date(2015,0,10), };   
+    var promotionhistoryobject = {message:'promotion started', originalprice:20,  };   
 
     it('should allow a promotion to be set', function() {
         // good.setPromotion('redpencil', promotionobject);
@@ -65,7 +66,7 @@ describe('a good that stores promotion information', function() {
     });
 
     it('should add events to the promotion history', function() {
-        good.setPromotionHistory('redpencil' , {message:'promotion started'});
+        good.setPromotionHistory('redpencil' , promotionhistoryobject);
         var ph = good.getPromotionHistory();
         var phlast = ph[ph.length-1];
         expect(phlast.info.message).toBe('promotion started');

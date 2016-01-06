@@ -4,12 +4,12 @@ function Good(price, description) {
     this.description = description || '' ;
     this.pricehistory = [{ 'price': price || 0, date: new Date() }]; 
     this.promotion = { 
-        type: '',
-        date: new Date(),
-        info: {}
+        type: '', // name of promotion type 
+        date: new Date(), 
+        info: {} // promotion metadata set by promotion processor
     };
-    this.promotionhistory = []; 
-    this.promotions = {};
+    this.promotionhistory = []; // stores promotion objects in reverse chronological order
+    this.promotions = {}; // stores current promotions. elements keyed by this.promotion.type, element data is {date:this.promotion.date, info:this.promotion.info }
 }
 
 Good.prototype.setDescription = function(description) {
@@ -45,7 +45,7 @@ Good.prototype.setPromotionHistory = function(promotion_name, promotion_info) {
     var p = Object.create(this.promotion);
     p.type = promotion_name;
     p.info = promotion_info;
-    this.promotionhistory.push( p ); 
+    this.promotionhistory.unshift( p ); 
     // console.dir(p.type);
     // console.dir(this.promotionhistory);
 };
