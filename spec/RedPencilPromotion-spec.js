@@ -4,7 +4,7 @@ describe('a red-pencil promotion processor', function() {
     var RedPencilPromotion = require('../src/RedPencilPromotion');
     var Good = require('../src/Good');
     var good, rpp;
-    var promotionobject = {startdate: new Date(2015,0,10), originalprice:20};   
+    var promotionobject = {type:'redpencil', date: new Date(2015,0,10), info:{originalprice:20}};   
 
     jasmine.clock().install();
 
@@ -57,9 +57,10 @@ describe('a red-pencil promotion processor', function() {
     });
 
     it('should remove a promotion if it is expired', function() {
-        good.setPromotion( 'redpencil',  promotionobject );
+        good.setPromotion(promotionobject);
+        expect(rpp.fetchRedPencilPromotion()).toBeDefined();        
         jasmine.clock().mockDate(new Date(2015, 6, 18));
-        rpp.removeRedPencilIfExpired();
+        rpp.processRedPencilRemoval();
         expect(rpp.fetchRedPencilPromotion()).toBeUndefined();        
     });
 

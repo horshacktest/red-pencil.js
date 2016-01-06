@@ -33,21 +33,21 @@ Good.prototype.getPromotions = function() {
     return this.promotions;
 };
 
-Good.prototype.setPromotion = function(promotion_name, promotion_info) {
-    this.promotions[promotion_name] = promotion_info;
+// to be called from the promotion processor
+Good.prototype.setPromotion = function(promotion) {
+    this.promotions[promotion.type] = { date: promotion.date, info: promotion.info };
 };
 
 Good.prototype.getPromotionHistory = function() {
     return this.promotionhistory; 
 };
 
-Good.prototype.setPromotionHistory = function(promotion_name, promotion_info) {
-    var p = Object.create(this.promotion);
-    p.type = promotion_name;
-    p.info = promotion_info;
-    this.promotionhistory.unshift( p ); 
-    // console.dir(p.type);
-    // console.dir(this.promotionhistory);
+// to be called from the promotion processor
+Good.prototype.setPromotionHistory = function(promotion) {
+    // var p = Object.create(this.promotion);
+    // p.type = promotion_name;
+    // p.info = promotion_info;
+    this.promotionhistory.unshift( promotion ); 
 };
 
 Good.prototype.removePromotion = function(promotion_name) {

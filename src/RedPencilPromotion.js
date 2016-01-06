@@ -92,26 +92,31 @@ RedPencilPromotion.prototype.testCurrentRedPencilPriceToPrePromotionPrice = func
     //comopare to current price to see if promotion should be removed
 };
 
-RedPencilPromotion.prototype.removeRedPencilIfExpired = function(startdate^^^^^) {
+RedPencilPromotion.prototype.removeRedPencilIfExpired = function(startdate) {
     // test to see if there is a redpencil promo applied that needs to be expired
-    var activepromotions = this.fetchRedPencilPromotion();
-    if ( activepromotions) {
-        var now = new Date();
-        if ( this.datediff( now, activepromotions.startdate ) > 30 ) {
-            this.removeRedPencilPromotion();
-        }
+    var now = new Date();
+    if ( this.datediff( now, startdate ) > 30 ) {
+        this.removeRedPencilPromotion();
     }
 };
 
 RedPencilPromotion.prototype.processRedPencilRemoval = function() {
-    this.removeRedPencilIfExpired();
+    var activepromotion = this.fetchRedPencilPromotion();
+        if ( activepromotion) {
+            this.removeRedPencilIfExpired(activepromotion.date);
+        }
 };
 
 RedPencilPromotion.prototype.removeRedPencilPromotion = function() {
     this.good.removePromotion('redpencil');
+     // TODO log this to the good's promotionhistory
 };
 
 RedPencilPromotion.prototype.setRedPencilPromotion = function() {
+    var rpp = Create.object(this.good.promotion);
+    rpp.type = 'redpencil';
+    rpp.info = {message:'rpp created'};
+
     //find the date of the price change that 
     // set the rpp in the promotions object
     // log it to the history object
