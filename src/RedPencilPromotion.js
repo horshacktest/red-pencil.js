@@ -42,11 +42,25 @@ RedPencilPromotion.prototype.datediff = function(date1, date2) {
 };
 
 RedPencilPromotion.prototype.getDaysSinceLastPriceChange = function() {
-    //var date0 = new Date();
-    var date1 = this.goodpricehistory[0].date;
-    var date2 = this.goodpricehistory[1].date || date1;
-    return this.datediff(date1,date2);
+    var date0 = new Date();
+    var price1 = this.goodpricehistory[0].price;
+    var date1 = this.goodpricehistory.find(
+        function(historyitem) {
+            return historyitem.price !== price1; 
+        }).date;
+
+    // var date1 = this.goodpricehistory[0].date;
+    // var date2 = this.goodpricehistory[1].date || date1;
+    return this.datediff(date0,date1);
 };
+
+RedPencilPromotion.prototype.getDaysSinceLastRedPencil = function() {
+    //var date0 = new Date();
+    // var date1 = this.goodpromotionhistory[0].date;
+    // var date2 = this.goodpromotionhistory[1].date || date1;
+    // return this.datediff(date1,date2);
+};
+
 
 RedPencilPromotion.prototype.process = function() {
     
@@ -118,7 +132,7 @@ RedPencilPromotion.prototype.removeRedPencilPromotion = function() {
 };
 
 RedPencilPromotion.prototype.setRedPencilPromotion = function() {
-    var rpp = Create.object(this.good.promotion);
+    var rpp = Object.create(this.good.promotion);
     rpp.type = 'redpencil';
     rpp.info = {message:'rpp created'};
 
